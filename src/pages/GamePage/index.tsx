@@ -32,6 +32,8 @@ const GamePage = () => {
     }, [winningWord])
 
     const handleKeyboardInput = (e: KeyboardEvent) => {
+        e.preventDefault()
+
         if (isGameEnded) {
             return
         }
@@ -69,7 +71,7 @@ const GamePage = () => {
                 toast.error('The word does not exist');
                 return
             }
-
+            console.log(lastWord === winningWord,currentWordIndex)
             if (lastWord === winningWord) {
                 setIsGameWon(true)
                 setIsGameEnded(true)
@@ -83,7 +85,7 @@ const GamePage = () => {
             }
             else {
                 setCurrentWordIndex(currentWordIndex + 1)
-                if (currentWordIndex + 1 > 6) {
+                if (currentWordIndex + 1 >= 6) {
                     setIsGameEnded(true)
                     setIsGameWon(false)
                     saveScore({
