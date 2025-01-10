@@ -18,7 +18,7 @@ export const scoresKey="LS_SCORES"
 export const saveScore = (score: Score): void =>{
     const scoresLs = getFromLS(scoresKey)
     if(!scoresLs){
-        setToLS(scoresKey,JSON.stringify([]))
+        setToLS(scoresKey,JSON.stringify([score]))
         return
     }
     let scoreArray;
@@ -48,4 +48,46 @@ export const getScores = (): Array<Score> =>{
     }
 
     return scoreArray
+}
+
+export const favWordsKey="LS_F_WORDS"
+
+export const saveFavWord = (word: string): void =>{
+    const wordsLs = getFromLS(favWordsKey)
+    if(!wordsLs){
+        setToLS(favWordsKey,JSON.stringify([word]))
+        return
+    }
+    let wordArray;
+
+    try{
+        wordArray = JSON.parse(wordsLs)
+    }
+    catch(e){
+        return
+    }
+
+    wordArray.push(word)
+    setToLS(favWordsKey,JSON.stringify(wordArray))
+}
+
+export const replaceFavWords = (wordArray: Array<string>): void=>{
+    setToLS(favWordsKey,JSON.stringify(wordArray))
+}
+
+export const getFavWords = (): Array<string>=>{
+    const wordsLs = getFromLS(favWordsKey)
+    if(!wordsLs){
+        return []
+    }
+
+    let wordsArray = new Array<string>();
+    try{
+        wordsArray = JSON.parse(wordsLs)
+    }
+    catch(e){
+        return []
+    }
+
+    return wordsArray
 }

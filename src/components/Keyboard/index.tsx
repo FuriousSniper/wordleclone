@@ -7,7 +7,8 @@ interface KeyboardProps {
     words: string[],
     isGameEnded: boolean,
     greenLetters: string[],
-    yellowLetters: string[]
+    yellowLetters: string[],
+    isDrawerOpen: boolean
 }
 
 const Keyboard = (props: KeyboardProps) => {
@@ -16,7 +17,7 @@ const Keyboard = (props: KeyboardProps) => {
     const row3 = "zxcvbnm"
 
     const buttonClick = (keyName: string) => {
-        if(props.isGameEnded){
+        if(props.isGameEnded || props.isDrawerOpen){
             return
         }
         props.keyPressFunction(keyName)

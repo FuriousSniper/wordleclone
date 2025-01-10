@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.less";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import GamePage from "./pages/GamePage";

@@ -8,6 +8,7 @@ import Summary from '../../components/Summary';
 import toast from 'react-hot-toast';
 import Header from '../../components/Header';
 import useTitle from '../../hooks/useTitle';
+import Drawer from '../../components/Drawer';
 
 const GamePage = () => {
     const [wordsArray, setWordsArray] = useState<string[]>(Array<string>(6).fill(""))
@@ -17,6 +18,7 @@ const GamePage = () => {
     const [winningWord, setWinningWord] = useState(getRandomWord())
     const [greenLetters, setGreenLetters] = useState<string[]>(Array<string>())
     const [yellowLetters, setYellowLetters] = useState<string[]>(Array<string>())
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     useTitle("Wordle - game")
 
     useEffect(() => {
@@ -32,7 +34,7 @@ const GamePage = () => {
     }, [winningWord])
 
     const handleKeyboardInput = (e: KeyboardEvent) => {
-        if (isGameEnded) {
+        if (isGameEnded || isDrawerOpen) {
             return
         }
 
@@ -40,15 +42,15 @@ const GamePage = () => {
             return
         }
 
+        if (e.key === "Backspace") {
+            e.preventDefault()
+        }
+
         mutateWord(e.key)
     }
 
     const mutateWord = async (keyName: string) => {
         if (isGameEnded) {
-            return
-        }
-        if (currentWordIndex >= 6) {
-            setIsGameEnded(true)
             return
         }
 
@@ -83,13 +85,13 @@ const GamePage = () => {
             }
             else {
                 setCurrentWordIndex(currentWordIndex + 1)
-                if (currentWordIndex + 1 > 6) {
+                if (currentWordIndex + 1 >= 6) {
                     setIsGameEnded(true)
                     setIsGameWon(false)
                     saveScore({
                         date: Date.now(),
                         word: winningWord,
-                        numberOfWords: currentWordIndex + 1
+                        numberOfWords: currentWordIndex + 2
                     })
                     toast.error('Better luck next time!');
                 }
@@ -131,17 +133,25 @@ const GamePage = () => {
         setYellowLetters(Array<string>())
     }
 
+    const closeDrawer = () =>{
+        setIsDrawerOpen(false)
+    }
+
     return (
         <div className="App">
             <Header />
             <h1>Wordle</h1>
             <div className="gameColumn">
                 <WordBoard words={wordsArray} currentWordIndex={currentWordIndex} winningWord={winningWord} isGameEnded={isGameEnded} addGreenLetter={addGreenLetter} addYellowLetter={addYellowLetter} />
-                <Keyboard keyPressFunction={mutateWord} currentWordIndex={currentWordIndex} words={wordsArray} isGameEnded={isGameEnded} greenLetters={greenLetters} yellowLetters={yellowLetters} />
+                <Keyboard keyPressFunction={mutateWord} currentWordIndex={currentWordIndex} words={wordsArray} isGameEnded={isGameEnded} greenLetters={greenLetters} yellowLetters={yellowLetters} isDrawerOpen={isDrawerOpen}/>
                 {
                     isGameEnded &&
                     <Summary winningWord={winningWord} isGameWon={isGameWon ?? false} resetGame={resetGame} />
                 }
+                <div className="wrapper">
+                    <button onClick={() => setIsDrawerOpen(!isDrawerOpen)} className='drawerButton'>Open favorite words</button>
+                </div>
+                <Drawer isOpen={isDrawerOpen} closeDrawer={closeDrawer}/>
             </div>
         </div>
     )

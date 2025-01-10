@@ -34,7 +34,7 @@ const ScorePage = () => {
     }
 
     return (
-        <div className="App">
+        <div className="App autoOverflow">
             <Header />
             <h1>Scores</h1>
             <div className="scoreColumn">
