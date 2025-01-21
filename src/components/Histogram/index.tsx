@@ -50,7 +50,7 @@ const Histogram = (props: HistogramProps) => {
                 Array.from(props.histogram.entries()).map(([key, value]) => {
                     return (
                         <div className="rowWrapper">
-                            <span>{key}</span>
+                            <span>#{key}</span>
                             <div className={`histBar ${determineColor(value)}`} style={{ width: ((value / nrOfGames) * 100) + "%" }}>
                                 {((value / nrOfGames) * 100).toFixed(0)}%
                             </div>

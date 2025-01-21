@@ -50,7 +50,7 @@ const Drawer = (props: DrawerProps) => {
                 <label htmlFor="newWord">New word</label>
                 <div>
                     <input type="text" id="newWord" name="newWord" placeholder="word" ref={inputRef} />
-                    <button type="button" onClick={addWord}>Add</button>
+                    <button type="button" onClick={addWord} className="buttonClass">Add</button>
                 </div>
             </div>
             {
@@ -64,7 +64,7 @@ const Drawer = (props: DrawerProps) => {
                     return (
                         <div className="drawerRow" key={key}>
                             <div className="drawerWord">{w}</div>
-                            <button onClick={()=>deleteWord(key)} type="button">Delete</button>
+                            <button onClick={()=>deleteWord(key)} type="button" className="buttonClass">Delete</button>
                         </div>
                     )
                 })

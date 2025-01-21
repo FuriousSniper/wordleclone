@@ -50,6 +50,10 @@ export const getScores = (): Array<Score> =>{
     return scoreArray
 }
 
+export const resetScores = () =>{
+    setToLS(scoresKey,JSON.stringify([]))
+}
+
 export const favWordsKey="LS_F_WORDS"
 
 export const saveFavWord = (word: string): void =>{

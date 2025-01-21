@@ -29,10 +29,6 @@ const GamePage = () => {
         }
     })
 
-    useEffect(() => {
-        console.log(winningWord)
-    }, [winningWord])
-
     const handleKeyboardInput = (e: KeyboardEvent) => {
         if (isGameEnded || isDrawerOpen) {
             return
@@ -149,7 +145,7 @@ const GamePage = () => {
                     <Summary winningWord={winningWord} isGameWon={isGameWon ?? false} resetGame={resetGame} />
                 }
                 <div className="wrapper">
-                    <button onClick={() => setIsDrawerOpen(!isDrawerOpen)} className='drawerButton'>Open favorite words</button>
+                    <button onClick={() => setIsDrawerOpen(!isDrawerOpen)} className='drawerButton buttonClass'>Open favorite words</button>
                 </div>
                 <Drawer isOpen={isDrawerOpen} closeDrawer={closeDrawer}/>
             </div>

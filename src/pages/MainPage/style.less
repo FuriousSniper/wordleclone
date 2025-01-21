@@ -1,4 +1,13 @@
-.bannerLetters{
+.mainPage {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center;
+  padding: 0 !important;
+  
+  .bannerLetters {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -7,14 +16,14 @@
     align-items: center;
     padding: 2rem 0;
 
-    .bannerWord{
-        display: flex;
-        column-gap: 5px;
-        flex-direction: row;
+    .bannerWord {
+      display: flex;
+      column-gap: 5px;
+      flex-direction: row;
     }
-}
+  }
 
-.menu{
+  .menu {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -22,8 +31,9 @@
     column-gap: 10rem;
     align-items: center;
 
-    a{
-        text-decoration: none;
-        color: inherit;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
+  }
 }
