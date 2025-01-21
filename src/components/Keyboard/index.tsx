@@ -44,11 +44,11 @@ const Keyboard = (props: KeyboardProps) => {
                 })}
             </div>
             <div className="keyRow">
-                <KeyboardButton keyName={"Enter"} clickFunction={buttonClick}/>
+                <KeyboardButton keyName={"Enter"} clickFunction={buttonClick} displayName="⏎" extraWidth/>
                 {row3.split("").map((keyName: string, index: number) => {
                     return <KeyboardButton keyName={keyName} clickFunction={buttonClick} key={index} isYellow={isLetterYellow(keyName)} isGreen={isLetterGreen(keyName)}/>
                 })}
-                <KeyboardButton keyName={"Backspace"} clickFunction={buttonClick} displayName="⌫"/>
+                <KeyboardButton keyName={"Backspace"} clickFunction={buttonClick} displayName="⌫" extraWidth/>
             </div>
         </div>
     )

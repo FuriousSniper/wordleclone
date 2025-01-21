@@ -6,6 +6,7 @@ interface KeyboardButtonProps{
     displayName?: string,
     isYellow?: boolean,
     isGreen?: boolean,
+    extraWidth?: boolean
 }
 
 const KeyboardButton = (props: KeyboardButtonProps) =>{
@@ -14,7 +15,7 @@ const KeyboardButton = (props: KeyboardButtonProps) =>{
         props.clickFunction(props.keyName)
     }
     return(
-        <div onClick={buttonClick} className={`keyboardButton ${props.isGreen ? "greenButton" : ""} ${props.isYellow ? "yellowButton" : ""}`}>
+        <div onClick={buttonClick} className={`keyboardButton ${props.isGreen ? "greenButton" : ""} ${props.isYellow ? "yellowButton" : ""}  ${props.extraWidth ? "extraWidth" : ""}`}>
             {props.displayName ?? props.keyName}
         </div>
     )

@@ -61,8 +61,8 @@ const Summary = (props: SummaryProps) => {
             </h3>
             <div className="details">
                 <div className="detailsRow centered">
-                    <button type='button' onClick={()=>props.resetGame()} className='playAgainButton'>Play again</button>
-                    <Link to="/scores"><button type='button' className='playAgainButton'>Scores</button></Link>
+                    <button type='button' onClick={()=>props.resetGame()} className='buttonClass'>Play again</button>
+                    <Link to="/scores"><button type='button' className='buttonClass'>Scores</button></Link>
                 </div>
                 <div className="detailsRow">
                     <span>Word to guess:</span>
@@ -107,9 +107,9 @@ const Summary = (props: SummaryProps) => {
                                         </div>
                                     }
                                     {
-                                        m.definitions.map((definition: string, key) => {
+                                        m.definitions.map((definition: string, key2) => {
                                             return (
-                                                <div className="detailsRow leftPadded" key={key}>
+                                                <div className="detailsRow leftPadded" key={key2}>
                                                     {definition}
                                                 </div>
                                             )

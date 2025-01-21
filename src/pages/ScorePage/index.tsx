@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react"
 import { Score } from "../../types/common"
-import { getScores } from "../../utils"
+import { getScores, resetScores } from "../../utils"
 import "./style.less"
 import Histogram from "../../components/Histogram"
 import Header from "../../components/Header"
 import useTitle from "../../hooks/useTitle"
+import ScoreTile from "../../components/ScoreTile"
 
 const ScorePage = () => {
     const [scores, setScores] = useState<Array<Score>>(getScores())
     const [histogram, setHistogram] = useState<Map<number, number>>(new Map<number, number>())
+    const [countWonGames, setCountWonGames] = useState(0)
+    const [countFirstWordWins, setCountFirstWordWins] = useState(0)
     useTitle("Wordle - scores")
 
     useEffect(() => {
         createHistogram()
+        let gamesWon = 0
+        let firstWords = 0
+        for (var i = 0; i < scores.length; i++) {
+            if (scores[i].numberOfWords < 7) {
+                gamesWon++
+            }
+            if (scores[i].numberOfWords === 1) {
+                firstWords++
+            }
+        }
+        setCountWonGames(gamesWon)
+        setCountFirstWordWins(firstWords)
     }, [scores])
 
     const printDates = (dateNumber: number) => {
@@ -33,6 +48,11 @@ const ScorePage = () => {
         setHistogram(h)
     }
 
+    const resetStats = () => {
+        resetScores()
+        setScores([])
+    }
+
     return (
         <div className="App autoOverflow">
             <Header />
@@ -41,17 +61,34 @@ const ScorePage = () => {
                 <div className="singleScore">
                     {
                         <>
-                            <span>Total number of games: {scores.length}</span>
+                            <ScoreTile scoreNumber={scores.length} scoreTitle={"Total number of games"} />
                             {scores.length > 0 &&
-                                <span>Mean of words needed to guess: {((scores.reduce((accumulator: number, current: Score) => accumulator + current.numberOfWords, 0)) / scores.length).toFixed(3)}</span>
+                                <ScoreTile scoreNumber={((scores.reduce((accumulator: number, current: Score) => accumulator + current.numberOfWords, 0)) / scores.length).toFixed(3)} scoreTitle={"Mean of words needed to guess"} />
+                            }
+                        </>
+                    }
+                </div>
+                <div className="singleScore">
+                    {
+                        <>
+                            {scores.length > 0 &&
+                                <>
+                                    <ScoreTile scoreNumber={countWonGames} scoreTitle={"Games won"} />
+                                    <ScoreTile scoreNumber={countFirstWordWins} scoreTitle={"Games won with 1st word"} />
+                                </>
                             }
                         </>
                     }
                 </div>
                 {scores.length > 0 &&
-                    <div className="singleScore">
-                        <Histogram histogram={histogram} />
-                    </div>
+                    <>
+                        <div className="singleScore">
+                            <Histogram histogram={histogram} />
+                        </div>
+                        <div className="singleScore">
+                            <button onClick={resetStats} className="buttonClass">Reset stats</button>
+                        </div>
+                    </>
                 }
                 {
                     scores.map((s: Score, key) => {

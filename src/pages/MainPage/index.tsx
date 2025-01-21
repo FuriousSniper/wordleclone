@@ -6,7 +6,7 @@ import useTitle from "../../hooks/useTitle";
 const MainPage = () => {
     useTitle("Wordle")
     return (
-        <div className="App">
+        <div className="App mainPage">
             <div className="bannerLetters">
                 <div className="bannerWord">
                     <Letter letter="P" green={true} />
